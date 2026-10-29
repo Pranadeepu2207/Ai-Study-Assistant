@@ -1,5 +1,6 @@
 import express from 'express';
 import passport from 'passport';
+import { protect } from '../middleware/authMiddleware.js';
 import generateToken from '../utils/generateToken.js';
 
 const router = express.Router()
@@ -23,6 +24,14 @@ router.get(
     (req, res) => {
         const token = generateToken(req.user._id);
         res.redirect(`${process.env.CLIENT_URL}/oauth-success?token=${token}`)
+    }
+)
+
+
+//protected Route for getting user Profile through GET /api/auth/me
+router.get(
+    '/me', protect, (req, res) => {
+        res.send(200).json({ success: true, user: req.user })
     }
 )
 
