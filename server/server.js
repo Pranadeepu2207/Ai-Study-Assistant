@@ -5,6 +5,8 @@ import passport from 'passport'
 import connectDb from './config/db.js'
 import './config/passport.js'
 import authRoutes from './routes/authRoutes.js'
+import chatRoutes from './routes/chatRoutes.js'
+import quizRoutes from './routes/quizRoutes.js'
 
 dotenv.config() // load env variables from .env file
 
@@ -22,6 +24,8 @@ app.use(express.json())  // parses json payloads in request bodies
 app.use(passport.initialize()) // Tell Express to use Passport
 
 app.use('/api/auth', authRoutes) //All routes inside authRoutes will start with /api/auth
+app.use('/api/chat', chatRoutes)
+app.use('/api/quiz', quizRoutes)
 
 app.get('/api/health', (req, res) => {
     res.status(200).json({ status: 'ok', message: 'AI Study Assistant Server running successfully!' })
