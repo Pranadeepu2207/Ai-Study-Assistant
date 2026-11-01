@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-lightest: #E3FDFD;
+  --color-brand-light: #CBF1F5;
+  --color-brand-soft: #A6E3E9;
+  --color-brand-primary: #71C9CE;
+}
+
+html,
+body,
+#root {
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #E3FDFD;
+  color: #0f172a;
+}

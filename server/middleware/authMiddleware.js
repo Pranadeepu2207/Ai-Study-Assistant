@@ -21,14 +21,14 @@ export const protect = async (req, res, next) => {
                 return res.status(401).json({ message: "User Not Found, authorization denied" })
             }
             next()
-        }catch(err){
+        } catch (error) {
             console.error('JWT Verification Error:', error.message);
-            return res.status(401).json({message: "Not Authorized, Invalid or Expired Token"})
+            return res.status(401).json({ message: "Not Authorized, Invalid or Expired Token" })
         }
     }
 
     //if Token is not sent in the Headers
-    if(!token){
-        return res.status(401).json({message: "Not Authorized, No Token Recieved"})
+    if (!token) {
+        return res.status(401).json({ message: "Not Authorized, No Token Recieved" })
     }
 }

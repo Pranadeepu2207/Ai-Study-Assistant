@@ -58,7 +58,7 @@ export const generateQuizzes = async (req, res) => {
             quiz
         })
 
-    } catch (err) {
+    } catch (error) {
         console.error('Chat Controller Error:', error.message);
         return res.status(500).json({ message: 'Failed to process AI chat message', error: err.message });
     }
@@ -73,7 +73,7 @@ export const getUserQuizzes = async (req, res) => {
             count: quizzes.length,
             quizzes
         })
-    } catch (err) {
+    } catch (error) {
         return res.status(500).json({ message: 'Error Fetching Quizzes' })
     }
 }
