@@ -4,6 +4,7 @@ import { protect } from '../middleware/authMiddleware.js'
 
 const router = express.Router();
 
+router.post("/generate", protect, generateQuizzes);
 router.post("/", protect, generateQuizzes)
 router.get("/", protect, getUserQuizzes)
 
