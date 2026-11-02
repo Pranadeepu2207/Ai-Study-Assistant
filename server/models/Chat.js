@@ -5,7 +5,7 @@ const messageSchema = new mongoose.Schema(
         sender: {
             type: String,
             enum: ['user', 'ai'], // it only allows 'user' or 'ai as values
-            unique: true
+            required: true,
         },
         text: {
             type: String,
@@ -21,7 +21,7 @@ const messageSchema = new mongoose.Schema(
 
 const chatSchema = new mongoose.Schema(
     {
-        user:{
+        user: {
             type: String,
             ref: 'User', // Creates a Foreign key Link to the User Model
             required: true,

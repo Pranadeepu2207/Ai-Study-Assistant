@@ -22,7 +22,7 @@ export const sendMessage = async (req, res) => {
             chat = await Chat.findOne({ _id: chatId, user: req.user._id })
 
             if (!chat) {
-                res.status(401).json({ message: "Chat session not found" })
+                return res.status(401).json({ message: "Chat session not found" })
             }
 
             chat.messages.push({ sender: 'user', text: message })
@@ -51,7 +51,7 @@ export const sendMessage = async (req, res) => {
 
     } catch (error) {
         console.error('Chat Controller Error:', error.message);
-        return res.status(500).json({ message: 'Failed to process AI chat message', error: err.message })
+        return res.status(500).json({ message: 'Failed to process AI chat message', error: error.message })
     }
 }
 

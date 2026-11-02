@@ -32,7 +32,7 @@ export const generateQuizzes = async (req, res) => {
             ;
 
         const response = await ai.models.generateContent({
-            model: 'gemini-2.5-falsh',
+            model: 'gemini-2.5-flash',
             contents: prompt
         })
 
@@ -60,7 +60,7 @@ export const generateQuizzes = async (req, res) => {
 
     } catch (error) {
         console.error('Chat Controller Error:', error.message);
-        return res.status(500).json({ message: 'Failed to process AI chat message', error: err.message });
+        return res.status(500).json({ message: 'Failed to process AI chat message', error: error.message });
     }
 }
 
