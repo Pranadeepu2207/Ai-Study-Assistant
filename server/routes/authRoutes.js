@@ -3,14 +3,14 @@ import passport from 'passport';
 import { protect } from '../middleware/authMiddleware.js';
 import generateToken from '../utils/generateToken.js';
 
-const router = express.Router()
+const router = express.Router();
 
 // Trigger Google OAuth login with GET /api/auth/google
 router.get(
     '/google',
     passport.authenticate('google', {
-        scope: ['profile', 'email'], // this scope tells to google that what data our app is asking permissions to view
-        session: false // this session tells to passport that e are not using traditional server-side cookies/sessions. We are using modern stateless JWT tokens
+        scope: ['profile', 'email'],
+        session: false
     })
 );
 
@@ -23,16 +23,15 @@ router.get(
     }),
     (req, res) => {
         const token = generateToken(req.user._id);
-        res.redirect(`${process.env.CLIENT_URL}/oauth-success?token=${token}`)
+        res.redirect(`${process.env.CLIENT_URL}/oauth-success?token=${token}`);
     }
-)
+);
 
-
-//protected Route for getting user Profile through GET /api/auth/me
+// Protected Route for getting user Profile through GET /api/auth/me
 router.get(
     '/me', protect, (req, res) => {
-        res.send(200).json({ success: true, user: req.user })
+        res.status(200).json({ success: true, user: req.user });
     }
-)
+);
 
-export default router
+export default router;
