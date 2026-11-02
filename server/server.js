@@ -13,6 +13,7 @@ dotenv.config() // load env variables from .env file
 connectDb();
 
 const app = express()
+app.set('trust proxy', 1);
 
 app.use(cors({
     origin: process.env.CLIENT_URL || 'http://localhost:5173',
