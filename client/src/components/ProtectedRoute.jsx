@@ -7,10 +7,9 @@ const ProtectedRoute = ({ children }) => {
 
     if (loading) {
         return (
-            <div className="min-h-screen w-full bg-[#E3FDFD] flex flex-col items-center justify-center gap-4">
-                {/* Tailwind Spinner: an outline circle with only top-border colored, spinning infinitely */}
-                <div className="w-12 h-12 rounded-full border-4 border-[#A6E3E9] border-t-[#71C9CE] animate-spin" />
-                <p className="text-sm font-semibold text-slate-600 animate-pulse">
+            <div className="min-h-screen w-full bg-[#F8F6F4] flex flex-col items-center justify-center gap-3">
+                <div className="w-8 h-8 rounded-full border-2 border-[#DDD0C8] border-t-[#323232] animate-spin" />
+                <p className="text-xs font-medium text-[#555555]">
                     Verifying session...
                 </p>
             </div>

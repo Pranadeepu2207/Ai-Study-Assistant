@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Brain, LogOut, User as UserIcon, Menu, X } from 'lucide-react';
+import { BookOpen, LogOut, User as UserIcon, Menu, X } from 'lucide-react';
 
 const Navbar = () => {
     const { user, logout } = useAuth();
@@ -9,7 +9,7 @@ const Navbar = () => {
     const location = useLocation();
 
     const handleGoogleLogin = () => {
-        const backendUrl = import.meta.env.VITE_BACKEND_URL;
+        const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
         window.location.href = `${backendUrl}/api/auth/google`;
     };
 
@@ -17,25 +17,25 @@ const Navbar = () => {
 
     const navLinks = [
         { name: 'Dashboard', path: '/dashboard' },
-        { name: 'AI Chat', path: '/chat' },
+        { name: 'Study Chat', path: '/chat' },
         { name: 'Quiz Generator', path: '/quiz' },
     ];
 
     return (
-        <header className="sticky top-0 z-50 w-full backdrop-blur-md bg-[#E3FDFD]/90 border-b border-[#A6E3E9]/60 shadow-xs">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-
-                {/* 1. Brand Logo */}
-                <Link to="/" className="flex items-center gap-2.5 group shrink-0">
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#71C9CE] flex items-center justify-center text-white shadow-md shadow-[#71C9CE]/30 group-hover:scale-105 transition-transform">
-                        <Brain className="w-5 h-5 text-white" />
+        <header className="sticky top-0 z-50 w-full bg-white border-b border-[#DDD0C8]">
+            <div className="w-full px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+                
+                {/* Brand Logo */}
+                <Link to="/" className="flex items-center gap-2 text-[#323232]">
+                    <div className="w-8 h-8 rounded-md bg-[#323232] flex items-center justify-center text-[#DDD0C8]">
+                        <BookOpen className="w-4 h-4" />
                     </div>
-                    <span className="font-extrabold text-lg sm:text-xl text-slate-800 tracking-tight">
-                        Study<span className="text-[#71C9CE]">AI</span>
+                    <span className="font-semibold text-base tracking-tight text-[#323232]">
+                        StudyAI
                     </span>
                 </Link>
 
-                {/* 2. Desktop Navigation Actions */}
+                {/* Desktop Navigation */}
                 <nav className="hidden md:flex items-center gap-6">
                     {user ? (
                         <>
@@ -43,77 +43,79 @@ const Navbar = () => {
                                 <Link
                                     key={link.path}
                                     to={link.path}
-                                    className={`text-sm font-semibold transition-colors ${isActive(link.path)
-                                            ? 'text-[#71C9CE] border-b-2 border-[#71C9CE] pb-0.5'
-                                            : 'text-slate-600 hover:text-[#71C9CE]'
-                                        }`}
+                                    className={`text-xs font-medium transition-colors ${
+                                        isActive(link.path)
+                                            ? 'text-[#323232] border-b-2 border-[#323232] pb-0.5'
+                                            : 'text-[#555555] hover:text-[#323232]'
+                                    }`}
                                 >
                                     {link.name}
                                 </Link>
                             ))}
 
-                            <div className="flex items-center gap-3 pl-3 border-l border-[#A6E3E9]">
+                            <div className="flex items-center gap-3 pl-3 border-l border-[#DDD0C8]">
                                 <Link
                                     to="/profile"
-                                    className={`w-9 h-9 rounded-full ring-2 overflow-hidden flex items-center justify-center bg-white transition shrink-0 ${isActive('/profile') ? 'ring-[#71C9CE]' : 'ring-[#A6E3E9] hover:ring-[#71C9CE]'
-                                        }`}
-                                    title="View Profile"
+                                    className={`w-8 h-8 rounded-md border flex items-center justify-center bg-white ${
+                                        isActive('/profile') ? 'border-[#323232]' : 'border-[#DDD0C8]'
+                                    }`}
+                                    title="Profile"
                                 >
                                     {user.avatar ? (
-                                        <img src={user.avatar} alt="Avatar" className="w-full h-full object-cover" />
+                                        <img src={user.avatar} alt="Profile" className="w-full h-full object-cover rounded-md" />
                                     ) : (
-                                        <UserIcon className="w-5 h-5 text-[#71C9CE]" />
+                                        <UserIcon className="w-4 h-4 text-[#323232]" />
                                     )}
                                 </Link>
 
                                 <button
                                     onClick={logout}
-                                    title="Logout"
-                                    className="p-2 rounded-xl text-slate-500 hover:text-rose-500 hover:bg-rose-50 transition cursor-pointer"
+                                    title="Sign out"
+                                    className="p-1.5 rounded-md text-[#555555] hover:text-[#323232] hover:bg-[#F4EFEB] transition"
                                 >
-                                    <LogOut className="w-5 h-5" />
+                                    <LogOut className="w-4 h-4" />
                                 </button>
                             </div>
                         </>
                     ) : (
                         <button
                             onClick={handleGoogleLogin}
-                            className="text-sm font-semibold px-4 py-2.5 rounded-xl bg-[#71C9CE] hover:bg-[#5dbbc0] text-white shadow-sm shadow-[#71C9CE]/40 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+                            className="text-xs font-medium px-4 py-2 rounded-md bg-[#323232] text-[#DDD0C8] hover:bg-[#1E1E1E] transition"
                         >
                             Sign in with Google
                         </button>
                     )}
                 </nav>
 
-                {/* 3. Mobile Hamburger Toggle Button */}
+                {/* Mobile Menu Button */}
                 <div className="flex items-center gap-2 md:hidden">
                     {user && (
                         <Link
                             to="/profile"
-                            className="w-8 h-8 rounded-full ring-2 ring-[#71C9CE] overflow-hidden flex items-center justify-center bg-white shrink-0"
+                            className="w-7 h-7 rounded-md border border-[#DDD0C8] flex items-center justify-center bg-white"
                         >
                             {user.avatar ? (
-                                <img src={user.avatar} alt="Avatar" className="w-full h-full object-cover" />
+                                <img src={user.avatar} alt="Profile" className="w-full h-full object-cover rounded-md" />
                             ) : (
-                                <UserIcon className="w-4 h-4 text-[#71C9CE]" />
+                                <UserIcon className="w-3.5 h-3.5 text-[#323232]" />
                             )}
                         </Link>
                     )}
 
                     <button
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        className="p-2 rounded-xl bg-white/80 border border-[#A6E3E9] text-slate-700 hover:text-[#71C9CE] transition cursor-pointer"
-                        aria-label="Toggle navigation menu"
+                        className="p-1.5 rounded-md border border-[#DDD0C8] text-[#323232]"
+                        aria-label="Toggle navigation"
                     >
-                        {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                        {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
                     </button>
                 </div>
 
             </div>
 
-            {/* 4. Mobile Dropdown Drawer */}
+            {/* Mobile Dropdown Drawer */}
             {mobileMenuOpen && (
-                <div className="md:hidden border-t border-[#A6E3E9]/60 bg-white/95 backdrop-blur-lg px-4 pt-3 pb-5 space-y-2 shadow-lg animate-in fade-in slide-in-from-top-2 duration-200">
+                <div className="md:hidden border-t border-[#DDD0C8] bg-white px-4 py-3 space-y-1">
                     {user ? (
                         <>
                             {navLinks.map((link) => (
@@ -121,10 +123,11 @@ const Navbar = () => {
                                     key={link.path}
                                     to={link.path}
                                     onClick={() => setMobileMenuOpen(false)}
-                                    className={`block px-4 py-3 rounded-xl text-sm font-semibold transition ${isActive(link.path)
-                                            ? 'bg-[#CBF1F5] text-[#71C9CE]'
-                                            : 'text-slate-700 hover:bg-[#E3FDFD]'
-                                        }`}
+                                    className={`block px-3 py-2 rounded-md text-xs font-medium ${
+                                        isActive(link.path)
+                                            ? 'bg-[#F4EFEB] text-[#323232]'
+                                            : 'text-[#555555] hover:bg-[#F4EFEB]'
+                                    }`}
                                 >
                                     {link.name}
                                 </Link>
@@ -132,26 +135,26 @@ const Navbar = () => {
                             <Link
                                 to="/profile"
                                 onClick={() => setMobileMenuOpen(false)}
-                                className="block px-4 py-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-[#E3FDFD]"
+                                className="block px-3 py-2 rounded-md text-xs font-medium text-[#555555] hover:bg-[#F4EFEB]"
                             >
-                                User Profile & Settings
+                                Profile
                             </Link>
                             <button
                                 onClick={() => {
                                     setMobileMenuOpen(false);
                                     logout();
                                 }}
-                                className="w-full text-left flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-semibold text-rose-600 hover:bg-rose-50 cursor-pointer"
+                                className="w-full text-left flex items-center gap-2 px-3 py-2 rounded-md text-xs font-medium text-red-700 hover:bg-red-50"
                             >
-                                <LogOut className="w-4 h-4" />
-                                <span>Sign Out</span>
+                                <LogOut className="w-3.5 h-3.5" />
+                                <span>Sign out</span>
                             </button>
                         </>
                     ) : (
                         <div className="pt-2">
                             <button
                                 onClick={handleGoogleLogin}
-                                className="w-full py-3 rounded-xl bg-[#71C9CE] text-white font-semibold text-sm shadow-md text-center cursor-pointer"
+                                className="w-full py-2.5 rounded-md bg-[#323232] text-[#DDD0C8] text-xs font-medium"
                             >
                                 Sign in with Google
                             </button>

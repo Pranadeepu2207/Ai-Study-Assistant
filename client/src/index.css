@@ -1,10 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-lightest: #E3FDFD;
-  --color-brand-light: #CBF1F5;
-  --color-brand-soft: #A6E3E9;
-  --color-brand-primary: #71C9CE;
+  --color-beige: #DDD0C8;
+  --color-beige-light: #F4EFEB;
+  --color-dark-grey: #323232;
+  --color-dark-grey-muted: #555555;
+  --color-surface: #FFFFFF;
 }
 
 html,
@@ -14,6 +15,6 @@ body,
   width: 100%;
   margin: 0;
   padding: 0;
-  background-color: #E3FDFD;
-  color: #0f172a;
+  background-color: #F8F6F4;
+  color: #323232;
 }
